@@ -1,29 +1,39 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../../sequelize'); // Now directly the instance
+const sequelize = require('../../../sequelize');
 
-// Define the User model
 const User = sequelize.define('User', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
   },
-  username: {
+  phone: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  nickname: {
     type: DataTypes.STRING,
     allowNull: false,
   },
   email: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true,
   },
-  password: {
+  planning: {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  limitQuota: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  availableQuota: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
 }, {
-  tableName: 'users', // Optional: explicitly specify the table name
-  timestamps: true,   // Optional: automatically add createdAt and updatedAt
+  tableName: 'users',
+  timestamps: true,
 });
 
 module.exports = User;
