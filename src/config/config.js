@@ -1,11 +1,33 @@
 const axios = require('axios');
 
-const ollama = axios.create({
-    baseURL: process.env.OLLAMA_URL,
+enviromantType = process.env.ENVIRONMENT;
+
+const ollama = enviromantType === 'production' ? 
+axios.create({
+    baseURL: process.env.PRODUCTION_OLLAMA_URL,
+    headers: { 'Content-Type': 'application/json' }
+})
+:
+axios.create({
+    baseURL: process.env.LOCAL_OLLAMA_URL,
     headers: { 'Content-Type': 'application/json' }
 });
 
-const model = process.env.DEFAULT_MODEL;
+const model = enviromantType === 'production' ? 
+process.env.PRODUCTION_MODEL :
+process.env.LOCAL_MODEL;
+
+async function testOllamaReachability() {
+    console.log("testing ollama")
+    try {
+        const response = await ollama.get('/'); // Or use an appropriate endpoint
+        console.log('Ollama is reachable:', response.status === 200);
+    } catch (error) {
+        console.error('Error reaching Ollama:', error);
+    }
+}
+
+testOllamaReachability()
 
 module.exports = { ollama, model };
 

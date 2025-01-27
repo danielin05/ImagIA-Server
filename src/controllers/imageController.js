@@ -1,6 +1,7 @@
 const { ollama, model } = require('../config/config');
 
 async function analyzeImage(req, res) {
+    console.log('Analyzing image');
     const startTime = Date.now();
 
     try {
@@ -76,6 +77,7 @@ async function analyzeImage(req, res) {
             message: 'Error processing request',
             error: error.message
         });
+        console.error(error);
     }
 }
 
