@@ -8,7 +8,7 @@ const User = sequelize.define('User', {
     primaryKey: true,
   },
   phone: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   nickname: {
@@ -21,15 +21,27 @@ const User = sequelize.define('User', {
   },
   planning: {
     type: DataTypes.STRING,
-    allowNull: false,
+    defaultValue: "Free",
   },
   limitQuota: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    defaultValue: 20,
   },
   availableQuota: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    defaultValue: 20,
+  },
+  validated: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
+  isAdmin: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
+  apiKey: {
+    type: DataTypes.STRING,
+    allowNull: true,
   },
 }, {
   tableName: 'users',

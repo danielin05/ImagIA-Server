@@ -9,11 +9,8 @@ const { User, Request, Image } = require('./src/bbdd/models/index');
     // Crear un nuevo usuario
     const newUser = await User.create({
       phone: 123456789, // Número de teléfono ficticio
-      nickname: 'pepe',
-      email: 'pepe@example.com',
-      planning: 'default', // Puedes modificar según tu lógica
-      limitQuota: 100,
-      availableQuota: 80,
+      nickname: 'PruebaEndPoint',
+      email: 'PruebaEndPoint@example.com',
     });
 
     console.log('Usuario creado:', newUser.toJSON());
