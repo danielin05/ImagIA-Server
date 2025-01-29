@@ -1,4 +1,4 @@
-CREATE DATABASE ImageIAdb;
+CREATE DATABASE ImagIAdb;
 
 CREATE USER 'ImagIAuser'@'localhost' IDENTIFIED BY 'ImagIAp@ss123';
 
