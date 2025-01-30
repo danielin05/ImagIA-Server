@@ -6,7 +6,7 @@ const { sequelize } = require('./src/bbdd/models/index'); // Extrae sequelize co
 (async () => {
   try {
 
-    await sequelize.sync({ force: false });
+    await sequelize.sync({ force: true });
 
     // Connect to the database
     await sequelize.authenticate();
