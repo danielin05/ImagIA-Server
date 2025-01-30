@@ -1,6 +1,6 @@
 require('dotenv').config();
 const { Sequelize } = require('sequelize');
-const { logger } = require('./logger');
+const { logger } = require('./src/bbdd/logger');
 
 console.log(process.env.MYSQL_PASSWORD)
 
@@ -19,4 +19,4 @@ const sequelize = new Sequelize(process.env.MYSQL_DATABASE, process.env.MYSQL_US
     }
 })();
 
-module.exports = { sequelize };
+module.exports = sequelize;
