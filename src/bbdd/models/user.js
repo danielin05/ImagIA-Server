@@ -8,28 +8,44 @@ const User = sequelize.define('User', {
     primaryKey: true,
   },
   phone: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING(40),
     allowNull: false,
   },
   nickname: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(50),
     allowNull: false,
   },
   email: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(50),
     allowNull: false,
   },
   planning: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    type: DataTypes.STRING(50),
+    defaultValue: "Free",
   },
   limitQuota: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    defaultValue: 20,
   },
   availableQuota: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    defaultValue: 20,
+  },
+  validated: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
+  isAdmin: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
+  password: {
+    type: DataTypes.STRING(50),
+    allowNull: true,
+  },
+  apiKey: {
+    type: DataTypes.STRING(16),
+    allowNull: true,
   },
 }, {
   tableName: 'users',

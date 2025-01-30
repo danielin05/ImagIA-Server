@@ -1,15 +1,15 @@
 const axios = require('axios');
 
-const url = 'http://localhost:3001/api/analitzar-imatge';
+const url = 'http://localhost:3001/api/usuaris/registrar';
 
 const headers = {
     'Content-Type': 'application/json'
 };
 
 const payload = {
-    prompt: 'This is a test prompt',
-    images: [],
-    stream: false
+    phone: "+34 600806993",
+    nickname: "Daniel",
+    email: "danielarpe05@gmail.com"
 };
 
 axios.post(url, payload, { headers })
