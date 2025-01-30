@@ -1,15 +1,14 @@
 const axios = require('axios');
 
-const url = 'http://localhost:3001/api/usuaris/registrar';
+const url = 'http://localhost:3001/api/admin/usuaris/login';
 
 const headers = {
     'Content-Type': 'application/json'
 };
 
 const payload = {
-    phone: "+34 600806993",
-    nickname: "Daniel",
-    email: "danielarpe05@gmail.com"
+    username: "admin",
+    password: "password"
 };
 
 axios.post(url, payload, { headers })

@@ -14,6 +14,7 @@ console.log('__dirname:', __dirname);
 // Import routes
 const imageRoutes = require('./src/routes/imageRoutes');
 const userRoutes = require('./src/routes/userRoutes')
+const adminRoutes = require('./src/routes/adminRoutes')
 
 // Middleware setup
 app.use(bodyParser.json());
@@ -29,6 +30,9 @@ app.use('/api', imageRoutes);
 
 // Use users-related routes
 app.use('/api/usuaris', userRoutes)
+
+// Use admin-related routes
+app.use('/api/admin', adminRoutes)
 
 // Start the server
 const port = process.env.PORT || 3000;
