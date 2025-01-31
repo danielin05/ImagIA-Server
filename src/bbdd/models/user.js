@@ -48,6 +48,11 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING(16),
     allowNull: true,
   },
+  smsCode: {
+    type: DataTypes.STRING(6),
+    allowNull: true,
+    defaultValue: null,
+  },
 }, {
   tableName: 'users',
   timestamps: true,

@@ -1,4 +1,5 @@
 const { User, Request, Image } = require('../bbdd/models/index');
+const { generateKey } = require('../middlewares/ApiKeyGenerator');
 
 async function registerUser(req, res) {
     console.log('Registering User');
@@ -31,5 +32,44 @@ async function registerUser(req, res) {
     }    
 }
 
+function validSMSCode(req,res) {
+    console.log('Validing SMS Code')
+    
+    const code = req.body.codi
+    const phone = req.body.phone
 
-module.exports = { registerUser };
+    // get the code from the database
+    User.findOne({
+        where: {
+            phone: phone,
+            smsCode: code
+        }
+    }).then(user => {
+        if (user) {
+            console.log('Code is valid')
+            // set valid to true
+            const apiKey = generateKey()
+            user.validated = true
+            user.smsCode = null
+            user.apiKey = apiKey
+            user.save()
+            res.status(200).send({
+                status: 'success',
+                message: 'Code is valid',
+                data: {
+                    apiKey: apiKey
+                }
+            })
+        } else {
+            console.log('Code is invalid')
+            user.smsCode = null
+            user.save()
+            res.status(401).send({
+                status: 'error',
+                message: 'Code is invalid'
+            })
+        }
+    })
+}
+
+module.exports = { registerUser, validSMSCode };
