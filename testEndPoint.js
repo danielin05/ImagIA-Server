@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const url = 'http://localhost:3001/api/admin/usuaris/login';
+const url = 'http://localhost:3001/api/generate';
 
 const headers = {
     'Content-Type': 'application/json'
