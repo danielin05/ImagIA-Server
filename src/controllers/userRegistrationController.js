@@ -1,5 +1,5 @@
-const { User, Request, Image } = require('../bbdd/models/index');
 const { generateKey } = require('../middlewares/ApiKeyGenerator');
+const { User } = require('../bbdd/models/user');
 
 async function registerUser(req, res) {
     console.log('Registering User');
