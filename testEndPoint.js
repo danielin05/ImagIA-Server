@@ -1,16 +1,15 @@
 const axios = require('axios');
 
-const url = 'http://localhost:3001/api/admin/usuaris/plan';
+const url = 'http://localhost:3001/api/usuaris/validar/validar-codi';
 const adminkey = 'dsmzj38qe2paw772'
 
 const headers = {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${adminkey}`
 };
 
 const payload = {
-    plan: 'Premium',
-    id: '2'
+    phone: '123457845',
+    codi: '123456'
 };
 
 axios.post(url, payload, { headers })

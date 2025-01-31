@@ -8,6 +8,6 @@ function generateKey() {
     return key;
 }
 
-module.exports = generateKey;
+module.exports = {generateKey };
 
-print(generateKey())
+console.log(generateKey())
