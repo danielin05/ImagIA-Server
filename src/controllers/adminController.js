@@ -1,6 +1,6 @@
 const { User } = require('../bbdd/models');
 
-async function loginAdmin(req, res) {
+function loginAdmin(req, res) {
     console.log('Login admin');
     const startTime = Date.now();
 
@@ -49,4 +49,50 @@ async function loginAdmin(req, res) {
         });
 }
 
-module.exports = { loginAdmin }
+function getUsers(req,res) {
+    User.findAll({where: {isAdmin: false}}).then(users => {
+        res.status(200).send({
+            status: 'success',
+            message: 'Users retrieved successfully',
+            data: users
+        })
+    }).catch(error => {
+        console.log(error)
+        res.status(500).send({
+            status: 'error',
+            message: 'Internal Server Error',
+            error: error
+        })
+    })
+}
+
+function changePlan(req,res) {
+    const apiKeyToken = req.headers['authorization'].split(' ')[1]
+    const userId = req.body.id
+    User.update({
+        planning: req.body.plan
+    },
+    {
+        where:{
+            id: userId
+        }
+    })
+    .then(user=>{
+        res.status(200).send({
+            status: 'success',
+            message: 'Plan changed successfully',
+            data: {}
+        })
+    })
+    .catch(error=>{
+        console.log(error)
+        res.status(500).send({
+            status: 'error',
+            message: 'Internal Server Error',
+            error: error
+        })
+    })
+}
+
+module.exports = { loginAdmin, getUsers, changePlan }
+

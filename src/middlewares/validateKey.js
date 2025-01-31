@@ -1,3 +1,4 @@
+const { User } = require('../bbdd/models');
 
 async function validateKey(req, res, next) {
     const apiKey = req.headers['authorization'];
