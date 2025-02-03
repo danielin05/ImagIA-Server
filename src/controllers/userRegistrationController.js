@@ -1,6 +1,7 @@
 const { generateKey } = require('../middlewares/ApiKeyGenerator');
 const User = require('../bbdd/models/user');
 const generateSMSCode = require('../middlewares/SMSCodeGenerator');
+const { SMSApiToken, SMSUrl, SMSUsername } = require('../config/config');
 
 async function registerUser(req, res) {
     console.log('Registering User');
@@ -89,7 +90,10 @@ async function sendSMS(req, res) {
                 user.smsCode = code
                 user.save()
                 console.log(`Sending SMS to ${phone}: "${text}"`);
-                //TODO send sms to phone
+                const url = `${SMSUrl}&api_token=${SMSApiToken}&username=${SMSUsername}&text=${text}&receiver=${phone}`
+                console.log(url)
+                axios.get(url)
+                
                 res.status(200).json({
                     status: "succes",
                     message: "SMS sent successfully",

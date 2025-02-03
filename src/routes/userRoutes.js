@@ -10,7 +10,6 @@ const validateSMSCodeReques = require('../middlewares/validateSMSCodeRequest');
 
 // Post route for analyzing image
 router.post('/validar/validar-codi',validateSMSCodeReques, validSMSCode);
-router.post('/registrar',validateRegistrationUser, registerUser);
-router.post('/validar/enviar-sms',validateSendSMS, sendSMS);
+router.post('/registrar',validateRegistrationUser, registerUser, sendSMS);
 
 module.exports = router;
