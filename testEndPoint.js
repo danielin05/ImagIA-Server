@@ -8,8 +8,8 @@ const headers = {
 };
 
 const payload = {
-    phone: '123457845',
-    codi: '123456'
+    phone: '12345678',
+    codi: '248919'
 };
 
 axios.post(url, payload, { headers })

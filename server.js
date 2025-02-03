@@ -15,7 +15,6 @@ console.log('__dirname:', __dirname);
 const imageRoutes = require('./src/routes/imageRoutes');
 const userRoutes = require('./src/routes/userRoutes')
 const adminRoutes = require('./src/routes/adminRoutes')
-const smsRoutes = require('./src/routes/sendSMSRoutes')
 
 // Middleware setup
 app.use(bodyParser.json());

@@ -1,5 +1,6 @@
 const { generateKey } = require('../middlewares/ApiKeyGenerator');
-const { User } = require('../bbdd/models/user');
+const User = require('../bbdd/models/user');
+const generateSMSCode = require('../middlewares/SMSCodeGenerator');
 
 async function registerUser(req, res) {
     console.log('Registering User');
@@ -72,4 +73,46 @@ function validSMSCode(req,res) {
     })
 }
 
-module.exports = { registerUser, validSMSCode };
+async function sendSMS(req, res) {
+    console.log('Processing SMS request...');
+
+    const phone = req.body.phone;
+    const code = generateSMSCode()
+    const text = `El codi de verificación es: ${code}`
+    try {
+        User.findOne({
+            where: {
+                phone: phone
+            }
+        }).then(user => {
+            if (user) {
+                user.smsCode = code
+                user.save()
+                console.log(`Sending SMS to ${phone}: "${text}"`);
+                //TODO send sms to phone
+                res.status(200).json({
+                    status: "succes",
+                    message: "SMS sent successfully",
+                });
+            } else {
+                console.log('User not found');
+                res.status(404).json({
+                    status: "error",
+                    message: "User not found"
+                });
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+            res.status(500).json({
+                status: "error",
+                message: "Error sending SMS",
+                error: error
+            });
+        });
+    } catch (error) {
+        console.error('Error sending SMS:', error);
+        res.status(500).json({ status: "error", message: "Error sending SMS", error: error });
+    }
+}
+
+module.exports = { registerUser, validSMSCode, sendSMS };
