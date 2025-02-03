@@ -2,8 +2,9 @@ const { generateKey } = require('../middlewares/ApiKeyGenerator');
 const User = require('../bbdd/models/user');
 const generateSMSCode = require('../middlewares/SMSCodeGenerator');
 const { SMSApiToken, SMSUrl, SMSUsername } = require('../config/config');
+const axios = require('axios');
 
-async function registerUser(req, res) {
+async function registerUser(req, res, next) {
     console.log('Registering User');
     const startTime = Date.now();
 
@@ -25,6 +26,7 @@ async function registerUser(req, res) {
                 email: req.body.email
             }
         })
+        next()
     } catch (error) {
         console.error('Error:', error);
         res.status(500).send({
@@ -90,28 +92,12 @@ async function sendSMS(req, res) {
                 user.smsCode = code
                 user.save()
                 console.log(`Sending SMS to ${phone}: "${text}"`);
-                const url = `${SMSUrl}&api_token=${SMSApiToken}&username=${SMSUsername}&text=${text}&receiver=${phone}`
+                const url = `${SMSUrl}?&api_token=${SMSApiToken}&username=${SMSUsername}&text=${text}&receiver=${phone}`
                 console.log(url)
                 axios.get(url)
-                
-                res.status(200).json({
-                    status: "succes",
-                    message: "SMS sent successfully",
-                });
-            } else {
-                console.log('User not found');
-                res.status(404).json({
-                    status: "error",
-                    message: "User not found"
-                });
             }
         }).catch(error => {
             console.error('Error:', error);
-            res.status(500).json({
-                status: "error",
-                message: "Error sending SMS",
-                error: error
-            });
         });
     } catch (error) {
         console.error('Error sending SMS:', error);
