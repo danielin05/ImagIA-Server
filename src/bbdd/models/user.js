@@ -42,10 +42,16 @@ const User = sequelize.define('User', {
   password: {
     type: DataTypes.STRING(50),
     allowNull: true,
+    defaultValue: null,
   },
   apiKey: {
     type: DataTypes.STRING(16),
     allowNull: true,
+  },
+  smsCode: {
+    type: DataTypes.STRING(6),
+    allowNull: true,
+    defaultValue: null,
   },
 }, {
   tableName: 'users',

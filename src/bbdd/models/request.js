@@ -8,7 +8,7 @@ const Request = sequelize.define('Request', {
     primaryKey: true,
   },
   prompt: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(255),
     allowNull: false,
   },
   stream: {

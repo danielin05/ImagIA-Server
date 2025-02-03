@@ -14,14 +14,14 @@ console.log('__dirname:', __dirname);
 // Import routes
 const imageRoutes = require('./src/routes/imageRoutes');
 const userRoutes = require('./src/routes/userRoutes')
+const adminRoutes = require('./src/routes/adminRoutes')
 
 // Middleware setup
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Add this line before your routes
-console.log(swaggerDocument);
+// Swagger documentation
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Use image-related routes
@@ -29,6 +29,9 @@ app.use('/api', imageRoutes);
 
 // Use users-related routes
 app.use('/api/usuaris', userRoutes)
+
+// Use admin-related routes
+app.use('/api/admin', adminRoutes)
 
 // Start the server
 const port = process.env.PORT || 3000;

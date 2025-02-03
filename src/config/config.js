@@ -16,6 +16,7 @@ axios.create({
 const model = enviromantType === 'production' ? 
 process.env.PRODUCTION_MODEL :
 process.env.LOCAL_MODEL;
+const SMSApiToken = process.env.SMS_API_TOKEN;
 
 async function testOllamaReachability() {
     console.log("testing ollama")
@@ -29,5 +30,5 @@ async function testOllamaReachability() {
 
 testOllamaReachability()
 
-module.exports = { ollama, model };
+module.exports = { ollama, model, SMSApiToken};
 
