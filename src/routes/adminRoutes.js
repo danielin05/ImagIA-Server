@@ -3,7 +3,7 @@ const router = express.Router();
 const { loginAdmin, getUsers, changePlan } = require("../controllers/adminController");
 const validateAdminPlanRequest = require("../middlewares/validateAdminPlanRequest");
 const validateAdminLoginRequest = require("../middlewares/validateAdminLoginRequest");
-const validateKey = require("../middlewares/ValidateKey");
+const validateKey = require("../middlewares/validateKey");
 const validateAdminUsersRequest = require("../middlewares/validateAdminUsersRequest")
 
 router.post("/usuaris/login", validateAdminLoginRequest, loginAdmin);

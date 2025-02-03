@@ -79,14 +79,6 @@ async function analyzeImage(req, res) {
             });
 
             console.log('Imagen registrada:', saveImg.toJSON());
-            res.status(200).send({
-                status: "Success",
-                message: "Image saved correctly",
-                data: {
-                    base64: req.body.images[0],
-                    description: response.data.response,
-                }
-            })
         }
     } catch (error) {
         res.status(500).send({

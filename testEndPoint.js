@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const url = 'http://localhost:3001/api/usuaris/validar/validar-codi';
+const url = 'http://localhost:3001/api/analitzar-imatge';
 const adminkey = 'dsmzj38qe2paw772'
 
 const headers = {
@@ -8,8 +8,9 @@ const headers = {
 };
 
 const payload = {
-    phone: '12345678',
-    codi: '248919'
+    prompt: 'Describe what you see in this image',
+    images: ["iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAaklEQVQ4T2NkoBAwYtOv9p/hPzbxW4wMGOoxBHBphhmIbgiKAYQ0YzMEbgCxmtENARtAqmZkQ0YNYGCkTizAQpXY2EBOTNRNiYRcQlReQM5EDVGQTNWwDDMTwdRhzY0wyfpIhv+gYMZnAAD8Ci0RnkOJhgAAAABJRU5ErkJgggAA"],
+    stream: false
 };
 
 axios.post(url, payload, { headers })
