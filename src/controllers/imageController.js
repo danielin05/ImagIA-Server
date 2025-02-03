@@ -1,4 +1,5 @@
 const { ollama, model } = require('../config/config');
+const User = require('../bbdd/models/user');
 const  Image = require('../bbdd/models/images');
 const Request = require('../bbdd/models/request');
 
@@ -61,7 +62,17 @@ async function analyzeImage(req, res) {
                 stream: false
             });
 
+            const user = await User.findOne({
+                attributes: ['id'],
+                where: {
+                    apiKey: req.headers['authorization'].split(' ')[1]
+                }
+            })
+
+            console.log(user)
+
             const saveReq = await Request.create({
+                userId: user.id,
                 prompt: req.body.prompt,
                 stream: false
             })
@@ -72,6 +83,7 @@ async function analyzeImage(req, res) {
             const saveImg = await Image.create({
                 base64: req.body.images[0],
                 description: response.data.response,
+                requestId: saveReq.id
             });
 
             console.log('Imagen registrada:', saveImg.toJSON());
