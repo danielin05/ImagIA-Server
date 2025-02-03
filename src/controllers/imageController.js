@@ -1,5 +1,5 @@
 const { ollama, model } = require('../config/config');
-const { Image } = require('../bbdd/models/images');
+const  Image = require('../bbdd/models/images');
 
 async function analyzeImage(req, res) {
     console.log('Analyzing image');
@@ -60,6 +60,13 @@ async function analyzeImage(req, res) {
                 stream: false
             });
 
+            const saveImg = await Image.create({
+                base64: req.body.images[0],
+                description: response.data.response,
+            });
+            
+            console.log('Imagen registrada:', saveImg.toJSON());
+
             const processingTime = ((Date.now() - startTime) / 1000).toFixed(2);
             console.log('Ollama response:', response.data.response);
             res.status(200).send({
@@ -71,14 +78,6 @@ async function analyzeImage(req, res) {
                     model_used: model
                 }
             });
-
-            // Guardar registro imagen
-            const saveImg = await Image.create({
-                base64: req.body.images[0],
-                description: response.data.response,
-            });
-
-            console.log('Imagen registrada:', saveImg.toJSON());
         }
     } catch (error) {
         res.status(500).send({
