@@ -9,9 +9,9 @@ const headers = {
 };
 
 const payload = {
-    prompt: 'Describe what you see in this image',
-    images: ["iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAaklEQVQ4T2NkoBAwYtOv9p/hPzbxW4wMGOoxBHBphhmIbgiKAYQ0YzMEbgCxmtENARtAqmZkQ0YNYGCkTizAQpXY2EBOTNRNiYRcQlReQM5EDVGQTNWwDDMTwdRhzY0wyfpIhv+gYMZnAAD8Ci0RnkOJhgAAAABJRU5ErkJgggAA"],
-    stream: false
+    phone: '123456789',
+    nickname: "Danielin",
+    email: "danielin@gmail.com"
 };
 
 axios.post(url, payload, { headers })
