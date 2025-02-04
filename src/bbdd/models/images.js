@@ -8,11 +8,11 @@ const Image = sequelize.define('Image', {
     primaryKey: true,
   },
   base64: {
-    type: DataTypes.STRING(255),
+    type: DataTypes.TEXT(),
     allowNull: false,
   },
   description: {
-    type: DataTypes.STRING(255),
+    type: DataTypes.TEXT(),
     allowNull: false,
   },
 }, {
