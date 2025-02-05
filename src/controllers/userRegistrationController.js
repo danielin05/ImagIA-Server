@@ -81,7 +81,7 @@ async function sendSMS(req, res) {
 
     const phone = req.body.phone;
     const code = generateSMSCode()
-    const text = `El codi de verificación es: ${code}`
+    const text = `El codi de verificació es: ${code}`
     try {
         User.findOne({
             where: {
