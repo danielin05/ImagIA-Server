@@ -17,6 +17,10 @@ const model = enviromantType === 'production' ?
 process.env.PRODUCTION_MODEL :
 process.env.LOCAL_MODEL;
 
+const SMSApiToken = process.env.SMS_API_TOKEN;
+const SMSUrl = process.env.SMS_URL;
+const SMSUsername = process.env.SMS_USERNAME;
+
 async function testOllamaReachability() {
     console.log("testing ollama")
     try {
@@ -29,5 +33,5 @@ async function testOllamaReachability() {
 
 testOllamaReachability()
 
-module.exports = { ollama, model };
+module.exports = { ollama, model, SMSApiToken, SMSUrl, SMSUsername };
 

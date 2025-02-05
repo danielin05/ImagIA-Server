@@ -8,19 +8,19 @@ const User = sequelize.define('User', {
     primaryKey: true,
   },
   phone: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(40),
     allowNull: false,
   },
   nickname: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(50),
     allowNull: false,
   },
   email: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(50),
     allowNull: false,
   },
   planning: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(50),
     defaultValue: "Free",
   },
   limitQuota: {
@@ -39,9 +39,19 @@ const User = sequelize.define('User', {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
   },
-  apiKey: {
-    type: DataTypes.STRING,
+  password: {
+    type: DataTypes.STRING(50),
     allowNull: true,
+    defaultValue: null,
+  },
+  apiKey: {
+    type: DataTypes.STRING(16),
+    allowNull: true,
+  },
+  smsCode: {
+    type: DataTypes.STRING(6),
+    allowNull: true,
+    defaultValue: null,
   },
 }, {
   tableName: 'users',

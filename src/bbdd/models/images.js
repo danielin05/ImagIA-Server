@@ -7,8 +7,12 @@ const Image = sequelize.define('Image', {
     autoIncrement: true,
     primaryKey: true,
   },
-  image: {
-    type: DataTypes.STRING,
+  base64: {
+    type: DataTypes.TEXT(),
+    allowNull: false,
+  },
+  description: {
+    type: DataTypes.TEXT(),
     allowNull: false,
   },
 }, {
