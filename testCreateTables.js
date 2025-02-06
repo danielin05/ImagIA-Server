@@ -1,6 +1,6 @@
 // COMPROBAR QUE SE CREAN LAS TABLAS
 
-const { sequelize } = require('./src/bbdd/models/index'); // Extrae sequelize correctamente
+const { sequelize } = require('./src/bbdd/models/logs'); // Extrae sequelize correctamente
 
 
 (async () => {

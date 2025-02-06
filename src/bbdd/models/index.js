@@ -2,6 +2,7 @@ const sequelize = require('../../../sequelize'); // Instancia de Sequelize
 const User = require('./user');
 const Request = require('./request');
 const Image = require('./images');
+const Log = require('./logs');
 
 // Definir asociaciones
 User.hasMany(Request, { foreignKey: 'userId', as: 'requests' });
@@ -14,4 +15,5 @@ module.exports = {
   User,
   Request,
   Image,
+  Log
 };
