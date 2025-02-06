@@ -18,7 +18,8 @@ async function registerUser(req, res, next) {
           email: req.body.email,
         });
     
-        logCreation("Change Plan", "Plan changed successfully", "usuaris/login", true);
+        logCreation("Create User", JSON.stringify(newUser.toJSON()), "usuaris/registrar", true);
+
         res.status(200).send({
             status: "Success",
             message: "User created correctly",
@@ -35,6 +36,8 @@ async function registerUser(req, res, next) {
             status: "ERROR",
             message: "Error trying to create the user",
         })
+
+        logCreation("ERROR", "Error trying to create the user", "usuaris/registrar", false);
     }    
 }
 
@@ -66,6 +69,9 @@ function validSMSCode(req,res) {
                     apiKey: apiKey
                 }
             })
+            
+            logCreation("Check Code", "Code is valid", "validar/validar-codi", true);
+
         } else {
             console.log('Code is invalid')
             user.smsCode = null
@@ -74,6 +80,8 @@ function validSMSCode(req,res) {
                 status: 'error',
                 message: 'Code is invalid'
             })
+
+            logCreation("ERROR", "Code is invalid", "validar/validar-codi", false);
         }
     })
 }
@@ -98,12 +106,16 @@ async function sendSMS(req, res) {
                 console.log(url)
                 axios.get(url)
             }
+
+            logCreation("Send SMS", `SMS sent to ${phone}`, "usuaris/registrar", true);
         }).catch(error => {
             console.error('Error:', error);
         });
     } catch (error) {
         console.error('Error sending SMS:', error);
         res.status(500).json({ status: "error", message: "Error sending SMS", error: error });
+
+        logCreation("ERROR", `Error sending SMS: ${error}`, "usuaris/registrar", false);
     }
 }
 

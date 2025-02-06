@@ -7,6 +7,9 @@ function generateSMSCode() {
     for (let i = 0; i < length; i++) {
         code += charset.charAt(Math.floor(Math.random() * charset.length));
     }
+
+    logCreation("Generate SMS", `SMS generated: ${code}`, "usuaris/registrar", true);
+
     return code;
 }
 
