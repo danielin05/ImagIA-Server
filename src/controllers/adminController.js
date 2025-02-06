@@ -94,5 +94,24 @@ function changePlan(req,res) {
     })
 }
 
-module.exports = { loginAdmin, getUsers, changePlan }
+function getLogs(req,res) {
+    const messageFilter = req.body.messageFilter
+    const tagFilter = req.body.tagFilter
+    /*.then(logs=>{
+        res.status(200).send({
+            status: 'success',
+            message: 'Logs retrieved successfully',
+            data: logs
+        })
+    }).catch(error=>{
+        console.log(error)
+        res.status(500).send({
+            status: 'error',
+            message: 'Internal Server Error',
+            error: error
+        })
+    })*/
+}
+
+module.exports = { loginAdmin, getUsers, changePlan, getLogs };
 

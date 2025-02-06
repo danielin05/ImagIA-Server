@@ -101,7 +101,6 @@ async function sendSMS(req, res) {
         });
     } catch (error) {
         console.error('Error sending SMS:', error);
-        res.status(500).json({ status: "error", message: "Error sending SMS", error: error });
     }
 }
 
