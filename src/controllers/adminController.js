@@ -1,4 +1,5 @@
 const { User } = require('../bbdd/models');
+const Log = require('../bbdd/models/logs');
 const logCreation = require('../middlewares/logsCreation');
 
 function loginAdmin(req, res) {
@@ -112,5 +113,65 @@ function changePlan(req,res) {
     })
 }
 
-module.exports = { loginAdmin, getUsers, changePlan }
+
+function getLogs(req,res) {
+    const messageFilter = req.body.messageFilter
+    const tagFilter = req.body.tagFilter
+    Log.findAll({
+        where: {
+            message: {
+                [Op.like]: `%${messageFilter}%`
+            },
+            tag: {
+                [Op.like]: `%${tagFilter}%`
+            }
+        }
+    }).then(logs => {
+        res.status(200).send({
+            status: 'success',
+            message: 'Logs retrieved successfully',
+            data: logs
+        })
+    }).catch(error=>{
+        console.log(error)
+        res.status(500).send({
+            status: 'error',
+            message: 'Internal Server Error',
+            error: error
+        })
+    })
+}
+
+function getRequests(req,res) {
+    //get the request count and tag made in the last hour
+    //SELECT count(*) as total, tag FROM logs WHERE createdAt > CURRENT_TIMESTAMP - INTERVAL '1 HOUR' GROUP BY tag ORDER BY total DESC
+    Log.findAll({
+        attributes: [
+          "tag",
+          [Sequelize.fn("COUNT", Sequelize.col("*")), "total"]
+        ],
+        where: {
+          createdAt: {
+            [Op.gt]: Sequelize.literal("NOW() - INTERVAL 1 HOUR")
+          }
+        },
+        group: ["tag"],
+        order: [[Sequelize.literal("total"), "DESC"]]
+      }).then(requests => {
+        res.status(200).send({
+            status: 'success',
+            message: 'Requests retrieved successfully',
+            data: requests
+        })
+    }).catch(error=>{
+        console.log(error)
+        res.status(500).send({
+            status: 'error',
+            message: 'Internal Server Error',
+            error: error
+        })
+    })
+}
+
+module.exports = { loginAdmin, getUsers, changePlan, getLogs, getRequests };
 
