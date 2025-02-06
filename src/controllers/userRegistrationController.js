@@ -113,7 +113,6 @@ async function sendSMS(req, res) {
         });
     } catch (error) {
         console.error('Error sending SMS:', error);
-
         logCreation("ERROR", `Error sending SMS: ${error}`, "usuaris/registrar", false);
     }
 }

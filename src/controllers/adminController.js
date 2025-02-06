@@ -113,7 +113,6 @@ function changePlan(req,res) {
     })
 }
 
-
 function getLogs(req,res) {
     const messageFilter = req.body.messageFilter
     const tagFilter = req.body.tagFilter
@@ -163,9 +162,7 @@ function getRequests(req,res) {
             message: 'Requests retrieved successfully',
             data: requests
         })
-
         logCreation("Get Requests", "Requests retrieved successfully", "request/list", true);
-
     }).catch(error=>{
         console.log(error)
         res.status(500).send({
