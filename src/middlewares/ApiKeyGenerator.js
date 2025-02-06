@@ -8,7 +8,7 @@ function generateKey() {
         key += charset.charAt(Math.floor(Math.random() * charset.length));
     }
 
-    logCreation("ERROR", "Internal server error", "usuaris/login", false)
+    logCreation("Generate apiKey", `ApiKey generated: ${key}`, "validar/validar-codi", true)
 
     return key;
 }
