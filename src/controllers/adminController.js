@@ -1,4 +1,5 @@
 const { User } = require('../bbdd/models');
+const logCreation = require('../middlewares/logsCreation');
 
 function loginAdmin(req, res) {
     console.log('Login admin');
@@ -25,19 +26,26 @@ function loginAdmin(req, res) {
                         },
                         time: Date.now() - startTime
                     });
+
+                    logCreation("Login", "Login succesful", "usuaris/login", true);
+
                 } else {
                     console.log('Password is incorrect');
                     res.status(401).send({
                         status: 'error',
-                        message: 'Invalid username or password'
+                        message: 'Invalid  password'
                     });
+
+                    logCreation("ERROR", "Login failed (Invalid password", "usuaris/login", false);
                 }
             } else {
                 console.log('User not found');
                 res.status(401).send({
                     status: 'error',
-                    message: 'Invalid username or password'
+                    message: 'User not found'
                 });
+
+                logCreation("ERROR", "Login failed (User not found", "usuaris/login", false);
             }
         }).catch(error => {
             console.log(error);
@@ -46,6 +54,8 @@ function loginAdmin(req, res) {
                 message: 'Internal server error',
                 error: error
             });
+
+            logCreation("ERROR", "Internal server error", "usuaris/login", false);
         });
 }
 
@@ -56,6 +66,8 @@ function getUsers(req,res) {
             message: 'Users retrieved successfully',
             data: users
         })
+        
+        logCreation("Find Users", "Users retrieved successfully", "usuaris/login", true);
     }).catch(error => {
         console.log(error)
         res.status(500).send({
@@ -63,6 +75,8 @@ function getUsers(req,res) {
             message: 'Internal Server Error',
             error: error
         })
+        
+        logCreation("ERROR", "Internal server error", "usuaris/login", false);
     })
 }
 
@@ -83,6 +97,8 @@ function changePlan(req,res) {
             message: 'Plan changed successfully',
             data: {}
         })
+
+        logCreation("Change Plan", "Plan changed successfully", "usuaris/login", true);
     })
     .catch(error=>{
         console.log(error)
@@ -91,6 +107,8 @@ function changePlan(req,res) {
             message: 'Internal Server Error',
             error: error
         })
+
+        logCreation("ERROR", "Internal server error", "usuaris/login", false)
     })
 }
 

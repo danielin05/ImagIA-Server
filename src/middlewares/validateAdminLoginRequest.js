@@ -1,3 +1,5 @@
+const logCreation = require('./logsCreation');
+
 function validateAdminLoginRequest(req, res, next) {
     if (!req.body.username || typeof req.body.username !== 'string') {
         return res.status(400).send({

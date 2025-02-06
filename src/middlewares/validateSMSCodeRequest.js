@@ -1,3 +1,5 @@
+const logCreation = require('./logsCreation');
+
 function validateSMSCodeRequest(req, res, next) {
     // Check if phone exists and is a string
     if (!req.body.phone || typeof req.body.phone !== 'string') {

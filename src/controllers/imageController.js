@@ -1,7 +1,8 @@
 const { ollama, model } = require('../config/config');
 const User = require('../bbdd/models/user');
-const  Image = require('../bbdd/models/images');
+const Image = require('../bbdd/models/images');
 const Request = require('../bbdd/models/request');
+const logCreation = require('../middlewares/logsCreation');
 
 async function analyzeImage(req, res) {
     console.log('Analyzing image');
@@ -20,7 +21,7 @@ async function analyzeImage(req, res) {
 
             res.setHeader('Content-Type', 'application/json');
             res.setHeader('Transfer-Encoding', 'chunked');
-    
+
             response.data.on('data', (chunk) => {
                 console.log('Received chunk:', chunk.toString());
                 const json = JSON.parse(chunk);
@@ -69,15 +70,13 @@ async function analyzeImage(req, res) {
                 }
             })
 
-            console.log(user)
-
             const saveReq = await Request.create({
                 userId: user.id,
                 prompt: req.body.prompt,
                 stream: false
             })
 
-            console.log('Request registrada:', saveReq.toJSON());
+            logCreation("Request Created", JSON.stringify(saveReq.toJSON()), "analitzar-imagte", true);
 
             // Guardar registro imagen
             const saveImg = await Image.create({
@@ -86,7 +85,7 @@ async function analyzeImage(req, res) {
                 requestId: saveReq.id
             });
 
-            console.log('Imagen registrada:', saveImg.toJSON());
+            logCreation("Image Saved", JSON.stringify(saveImg.toJSON()), "analitzar-imagte", true);
 
             const processingTime = ((Date.now() - startTime) / 1000).toFixed(2);
             console.log('Ollama response:', response.data.response);
@@ -107,6 +106,8 @@ async function analyzeImage(req, res) {
             error: error.message
         });
         console.error(error);
+
+        logCreation("ERROR", "Error processing request", "analitzar-imagte", false);
     }
 }
 

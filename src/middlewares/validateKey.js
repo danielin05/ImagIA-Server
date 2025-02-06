@@ -1,3 +1,5 @@
+const logCreation = require('./logsCreation');
+
 const { User } = require('../bbdd/models');
 
 async function validateKey(req, res, next) {

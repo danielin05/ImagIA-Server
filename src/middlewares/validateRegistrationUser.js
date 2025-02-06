@@ -1,3 +1,5 @@
+const logCreation = require('./logsCreation');
+
 function validateRegistrationUser(req, res, next) {
     // Check if prompt exists and is a string
     if (!req.body.phone || typeof req.body.phone !== 'string') {
