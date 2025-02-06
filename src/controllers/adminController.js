@@ -1,4 +1,5 @@
 const { User } = require('../bbdd/models');
+const Log = require('../bbdd/models/logs');
 const logCreation = require('../middlewares/logsCreation');
 
 function loginAdmin(req, res) {
@@ -142,15 +143,15 @@ function getLogs(req,res) {
 
 function getRequests(req,res) {
     //get the request count and tag made in the last hour
-    //SELECT count(*) as total, tag FROM logs WHERE createdAt > now() - interval '1 hour' GROUP BY tag ORDER BY total DESC
-    LLogs.findAll({
+    //SELECT count(*) as total, tag FROM logs WHERE createdAt > CURRENT_TIMESTAMP - INTERVAL '1 HOUR' GROUP BY tag ORDER BY total DESC
+    Log.findAll({
         attributes: [
           "tag",
           [Sequelize.fn("COUNT", Sequelize.col("*")), "total"]
         ],
         where: {
           createdAt: {
-            [Op.gt]: Sequelize.literal("NOW() - INTERVAL '1 HOUR'")
+            [Op.gt]: Sequelize.literal("NOW() - INTERVAL 1 HOUR")
           }
         },
         group: ["tag"],
@@ -171,5 +172,5 @@ function getRequests(req,res) {
     })
 }
 
-module.exports = { loginAdmin, getUsers, changePlan, getLogs };
+module.exports = { loginAdmin, getUsers, changePlan, getLogs, getRequests };
 
