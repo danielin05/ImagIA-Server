@@ -132,6 +132,7 @@ function getLogs(req,res) {
             message: 'Logs retrieved successfully',
             data: logs
         })
+        logCreation("Get Logs", "Logs retrieved successfully", "logs/list", true);
     }).catch(error=>{
         console.log(error)
         res.status(500).send({
@@ -139,12 +140,11 @@ function getLogs(req,res) {
             message: 'Internal Server Error',
             error: error
         })
+        logCreation("ERROR", "Internal Server Error", "logs/list", false);
     })
 }
 
 function getRequests(req,res) {
-    //get the request count and tag made in the last hour
-    //SELECT count(*) as total, tag FROM logs WHERE createdAt > CURRENT_TIMESTAMP - INTERVAL '1 HOUR' GROUP BY tag ORDER BY total DESC
     Log.findAll({
         attributes: [
           "tag",
@@ -163,6 +163,9 @@ function getRequests(req,res) {
             message: 'Requests retrieved successfully',
             data: requests
         })
+
+        logCreation("Get Requests", "Requests retrieved successfully", "request/list", true);
+
     }).catch(error=>{
         console.log(error)
         res.status(500).send({
@@ -170,6 +173,7 @@ function getRequests(req,res) {
             message: 'Internal Server Error',
             error: error
         })
+        logCreation("ERROR", "Internal Server Error", "request/list", false);
     })
 }
 
