@@ -1,3 +1,5 @@
+const logCreation = require('./logsCreation');
+
 function generateSMSCode() {
     const charset = '0123456789';
     const length = 6;

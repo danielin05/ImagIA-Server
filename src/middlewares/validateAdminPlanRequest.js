@@ -1,3 +1,5 @@
+const logCreation = require('./logsCreation');
+
 function validateAdminPlanRequest(req,res,next) {
     if (!req.body.plan || typeof req.body.plan !== 'string') {
         return res.status(400).send({

@@ -1,6 +1,11 @@
+const logCreation = require('./logsCreation');
+
 function validateImageRequest(req, res, next) {
     // Check if prompt exists and is a string
     if (!req.body.prompt || typeof req.body.prompt !== 'string') {
+        
+        logCreation("ERROR", "Invalid or missing parameter: prompt (must be string)", "analitzar-imagte", false);
+        
         return res.status(400).send({
             status: 'error',
             message: 'Invalid or missing parameter: prompt (must be string)'
@@ -9,6 +14,9 @@ function validateImageRequest(req, res, next) {
 
     // Check if images exist and are an array
     if (!req.body.images || !Array.isArray(req.body.images)) {
+
+        logCreation("ERROR", "Invalid or missing parameter: images (must be array)", "analitzar-imagte", false);
+        
         return res.status(400).send({
             status: 'error',
             message: 'Invalid or missing parameter: images (must be array)'
@@ -17,6 +25,9 @@ function validateImageRequest(req, res, next) {
 
     // Check if all images are base64 strings
     if (!req.body.images.every(img => typeof img === 'string')) {
+
+        logCreation("ERROR", "All images must be base64 strings", "analitzar-imagte", false);
+        
         return res.status(400).send({
             status: 'error',
             message: 'All images must be base64 strings'
@@ -25,6 +36,9 @@ function validateImageRequest(req, res, next) {
 
     // Check if stream exists and is a boolean
     if (typeof req.body.stream !== 'boolean') {
+
+        logCreation("ERROR", "Invalid or missing parameter: stream (must be boolean)", "analitzar-imagte", false);
+        
         return res.status(400).send({
             status: 'error',
             message: 'Invalid or missing parameter: stream (must be boolean)'

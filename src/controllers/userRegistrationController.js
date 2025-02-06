@@ -1,6 +1,8 @@
 const { generateKey } = require('../middlewares/ApiKeyGenerator');
 const User = require('../bbdd/models/user');
 const generateSMSCode = require('../middlewares/SMSCodeGenerator');
+const logCreation = require('../middlewares/logsCreation');
+
 const { SMSApiToken, SMSUrl, SMSUsername } = require('../config/config');
 const axios = require('axios');
 
@@ -16,7 +18,7 @@ async function registerUser(req, res, next) {
           email: req.body.email,
         });
     
-        console.log('Usuario creado:', newUser.toJSON());
+        logCreation("Change Plan", "Plan changed successfully", "usuaris/login", true);
         res.status(200).send({
             status: "Success",
             message: "User created correctly",

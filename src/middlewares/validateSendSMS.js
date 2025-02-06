@@ -1,3 +1,5 @@
+const logCreation = require('./logsCreation');
+
 function validateSendSMS(req, res, next) {
 
     if (!req.body.phone || typeof req.body.phone !== 'string') {
