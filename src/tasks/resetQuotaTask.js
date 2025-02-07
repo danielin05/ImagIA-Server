@@ -1,11 +1,10 @@
-const { log } = require('winston');
 const { User } = require('../bbdd/models');
-const { sequelize } = require('sequelize');
+const { Sequelize } = require('sequelize');
 
 async function resetQuotaTask() {
     try {
         await User.update(
-            { availableQuota: sequelize.col('limitQuota') },
+            { availableQuota: Sequelize.col('limitQuota') },
             { where: {} }
         );
     } catch (error) {
