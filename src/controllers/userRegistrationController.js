@@ -3,7 +3,7 @@ const User = require('../bbdd/models/user');
 const generateSMSCode = require('../middlewares/SMSCodeGenerator');
 const logCreation = require('../middlewares/logsCreation');
 
-const { SMSApiToken, SMSUrl, SMSUsername } = require('../config/config');
+const { SMSApiToken, SMSUrl, SMSUsername, defaultPlan, planQuota } = require('../config/config');
 const axios = require('axios');
 
 async function registerUser(req, res, next) {
@@ -16,6 +16,9 @@ async function registerUser(req, res, next) {
           phone: req.body.phone, // Número de teléfono ficticio
           nickname: req.body.nickname,
           email: req.body.email,
+          planning: defaultPlan,
+          availableQuota: planQuota[defaultPlan],
+          limitQuota: planQuota[defaultPlan]
         });
     
         logCreation("Create User", JSON.stringify(newUser.toJSON()), "usuaris/registrar", true);
