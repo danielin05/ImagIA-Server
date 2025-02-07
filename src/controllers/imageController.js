@@ -96,7 +96,8 @@ async function analyzeImage(req, res) {
                 data: {
                     description: response.data.response,
                     processing_time: processingTime,
-                    model_used: model
+                    model_used: model,
+                    currentQuota: user.availableQuota
                 }
             });
         }
