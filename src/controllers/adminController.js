@@ -85,7 +85,9 @@ function changePlan(req,res) {
     const apiKeyToken = req.headers['authorization'].split(' ')[1]
     const userId = req.body.id
     User.update({
-        planning: req.body.plan
+        planning: req.body.plan,
+        availableQuota: planQuota[req.body.plan],
+        limitQuota: planQuota[req.body.plan]
     },
     {
         where:{
@@ -99,7 +101,7 @@ function changePlan(req,res) {
             data: {}
         })
 
-        logCreation("Change Plan", "Plan changed successfully", "usuaris/login", true);
+        logCreation("Change Plan", "Plan changed successfully", "usuaris/plan", true);
     })
     .catch(error=>{
         console.log(error)
@@ -109,7 +111,40 @@ function changePlan(req,res) {
             error: error
         })
 
-        logCreation("ERROR", "Internal server error", "usuaris/login", false)
+        logCreation("ERROR", "Internal server error", "usuaris/plan", false)
+    })
+}
+
+function changeQuota(req,res) {
+    const apiKeyToken = req.headers['authorization'].split(' ')[1]
+    const userId = req.body.id
+    User.update({
+        availableQuota: req.body.quota,
+        limitQuota: req.body.quota
+    },
+    {
+        where:{
+            id: userId
+        }
+    })
+    .then(user=>{
+        res.status(200).send({
+            status: 'success',
+            message: 'Quota changed successfully',
+            data: {}
+        })
+
+        logCreation("Change Quota", "Plan changed successfully", "usuaris/quota", true);
+    })
+    .catch(error=>{
+        console.log(error)
+        res.status(500).send({
+            status: 'error',
+            message: 'Internal Server Error',
+            error: error
+        })
+
+        logCreation("ERROR", "Internal server error", "usuaris/quota", false)
     })
 }
 
@@ -174,5 +209,5 @@ function getRequests(req,res) {
     })
 }
 
-module.exports = { loginAdmin, getUsers, changePlan, getLogs, getRequests };
+module.exports = { loginAdmin, getUsers, changePlan, changeQuota, getLogs, getRequests };
 
