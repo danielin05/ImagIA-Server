@@ -88,7 +88,8 @@ async function analyzeImage(req, res) {
             logCreation("Image Saved", JSON.stringify(saveImg.toJSON()), "analitzar-imagte", true);
 
             const processingTime = ((Date.now() - startTime) / 1000).toFixed(2);
-            console.log('Ollama response:', response.data.response);
+            user.availableQuota -= 1;
+            await user.save();
             res.status(200).send({
                 status: 'success',
                 message: 'Image analysis complete',

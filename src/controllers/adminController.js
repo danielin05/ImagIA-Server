@@ -1,6 +1,7 @@
 const { User } = require('../bbdd/models');
 const Log = require('../bbdd/models/logs');
 const logCreation = require('../middlewares/logsCreation');
+const { Op, Sequelize } = require('sequelize');
 
 function loginAdmin(req, res) {
     console.log('Login admin');
@@ -82,7 +83,6 @@ function getUsers(req,res) {
 }
 
 function changePlan(req,res) {
-    const apiKeyToken = req.headers['authorization'].split(' ')[1]
     const userId = req.body.id
     User.update({
         planning: req.body.plan,

@@ -30,8 +30,13 @@ async function testOllamaReachability() {
         console.error('Error reaching Ollama:', error);
     }
 }
+defaultPlan = "Free"
+planQuota = {
+    "Free": 20,
+    "Premium": 100
+}
 
 testOllamaReachability()
 
-module.exports = { ollama, model, SMSApiToken, SMSUrl, SMSUsername };
+module.exports = { ollama, model, SMSApiToken, SMSUrl, SMSUsername, planQuota, defaultPlan };
 
