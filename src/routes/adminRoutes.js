@@ -13,6 +13,6 @@ router.post("/usuaris/login", validateAdminLoginRequest, loginAdmin);
 router.get("/usuaris",validateKey,validateAdminUsersRequest,getUsers)
 router.post("/usuaris/plan",validateKey,validateAdminPlanRequest,changePlan)
 router.post("/logs/list",validateKey,validateAdminLogsRequest,getLogs)
-router.get("/request/list",validateKey,validateAdminRequestsRequest,getRequests)
+router.get("/requests/list",validateKey,validateAdminRequestsRequest,getRequests)
 
 module.exports = router;

@@ -1,6 +1,7 @@
 const { User } = require('../bbdd/models');
 const Log = require('../bbdd/models/logs');
 const logCreation = require('../middlewares/logsCreation');
+const { Op, Sequelize } = require('sequelize');
 
 function loginAdmin(req, res) {
     console.log('Login admin');
