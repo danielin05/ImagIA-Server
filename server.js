@@ -7,6 +7,7 @@ const dotenv = require('dotenv');
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
 
+
 const swaggerDocument = YAML.load(path.join(__dirname, 'swagger.yaml'));
 dotenv.config();
 console.log('Current directory:', process.cwd());
@@ -32,6 +33,12 @@ app.use('/api/usuaris', userRoutes)
 
 // Use admin-related routes
 app.use('/api/admin', adminRoutes)
+// Task setup
+const scheduleTask = require('./src/tasks/scheduleTask');
+const resetQuotaTask = require('./src/tasks/resetQuotaTask');
+
+// Schedule tasks
+scheduleTask(resetQuotaTask);
 
 // Start the server
 const port = process.env.PORT || 3000;
