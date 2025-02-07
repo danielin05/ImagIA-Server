@@ -31,6 +31,11 @@ async function testOllamaReachability() {
     }
 }
 
+planQuota = {
+    "Free": 20,
+    "Premium": 100
+}
+
 testOllamaReachability()
 
 module.exports = { ollama, model, SMSApiToken, SMSUrl, SMSUsername };
