@@ -83,7 +83,6 @@ function getUsers(req,res) {
 }
 
 function changePlan(req,res) {
-    const apiKeyToken = req.headers['authorization'].split(' ')[1]
     const userId = req.body.id
     User.update({
         planning: req.body.plan
