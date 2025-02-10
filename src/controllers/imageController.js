@@ -64,7 +64,7 @@ async function analyzeImage(req, res) {
             });
 
             const user = await User.findOne({
-                attributes: ['id'],
+                attributes: ['id','availableQuota'],
                 where: {
                     apiKey: req.headers['authorization'].split(' ')[1]
                 }
