@@ -14,8 +14,9 @@ function checkQuota(req, res, next) {
                 message: 'You have reached your image limit'
             });
         }
+        next();
     })
-    next();
+    
 }
 
 module.exports = checkQuota;
