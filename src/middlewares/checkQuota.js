@@ -19,7 +19,6 @@ function checkQuota(req, res, next) {
         logCreation("Check Quota", `Checked the actual available quota`, "analitzar-imatge", false);
         next();
     })
-    next();
 }
 
 module.exports = checkQuota;
